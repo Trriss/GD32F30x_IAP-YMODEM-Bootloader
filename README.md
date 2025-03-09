@@ -13,46 +13,13 @@ This firmware package is ported to work on Gigadevice GD32F0x devices.
 ## Description of Core directory 
 This directory contains a set of sources and header files for an IAP bootloader using USART via YMODEM protocol for flashing/reading firmware.
 
-**Directory Contents**
-- "STM32G0xx_IAP/IAP_Main/Inc": contains the IAP firmware header files 
-
-    - STM32G0xx_IAP/IAP_Main/Inc/main.h              The main include file of the project.
-    - STM32G0xx_IAP/IAP_Main/Inc/common.h            This file provides all the headers of the common functions.
-    - STM32G0xx_IAP/IAP_Main/Inc/flash_if.h          This file provides all the firmware 
-                                                     function headers of the flash_if.c file.
-    - STM32G0xx_IAP/IAP_Main/Inc/menu.h              This file provides all the firmware
-                                                     function headers of the menu.c file.
-    - STM32G0xx_IAP/IAP_Main/Inc/ymodem.h            This file provides all the firmware
-                                                     function headers of the ymodem.c file.
-    - STM32G0xx_IAP/IAP_Main/Inc/STM32G0xx_hal_conf.h  Library Configuration file
-    - STM32G0xx_IAP/IAP_Main/Inc/STM32G0xx_it.h      Header for STM32G0xx_it.c 
-
-
-- "STM32G0xx_IAP/IAP_Main/Src": contains the IAP firmware source files
-    - STM32G0xx_IAP/IAP_Main/Src/main.c              Main program
-    - STM32G0xx_IAP/IAP_Main/Src/STM32G0xx_it.c      Interrupt handlers
-    - STM32G0xx_IAP/IAP_Main/Src/STM32G0xx_hal_msp.c Microcontroller specific packages
-                                                     initialization file.
-    - STM32G0xx_IAP/IAP_Main/Src/flash_if.c          The file contains write, erase and disable
-                                                     write protection of the internal Flash
-                                                     memory.
-    - STM32G0xx_IAP/IAP_Main/Src/menu.c              This file contains the menu to select
-                                                     downloading a new binary file, uploading
-                                                     internal Flash memory, executing the binary
-                                                     and disabling the write protection of
-                                                     write-protected pages
-    - STM32G0xx_IAP/IAP_Main/Src/common.c            This file provides functions related to
-                                                     read/write from/to USART peripheral
-    - STM32G0xx_IAP/IAP_Main/Src/ymodem.c            This file provides all the firmware functions
-                                                     related to the ymodem protocol.
-    - STM32G0xx_IAP/IAP_Main/Src/system_STM32G0xx.c  STM32G0xx system source file
-
-
-**IAP implementation
+**IAP implementation**
 (1) User application location address is defined in the configure.h file as: 
 #define APPLICATION_ADDRESS           ((uint32_t)0x08008000) <br>
 To modify it, change the default value to the desired one. Note that the application must be linked
 relatively to the new address too.
+
+(2)The function gpio_check_buttons_pressed(void) in gpio.c handles the logic for detecting button combinations that trigger the bootloader. You may modify this function, and the gpio_start(void) and gpio_reset(void) functions will also need to be updated to use different pins.
 
 **USART AND TERATERM CONFIGURATIONS**
 - Word Length = 8 Bits
